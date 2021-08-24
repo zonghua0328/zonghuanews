@@ -1,19 +1,17 @@
 <template>
   <div class="home-container">
     <van-nav-bar title="纵华小歌单" fixed />
-    <!-- <div class="disc"></div> -->
-    <van-tabbar v-model="active">
-      <van-tabbar-item icon="home-o">标签</van-tabbar-item>
-      <van-tabbar-item icon="search">标签</van-tabbar-item>
-      <van-tabbar-item icon="friends-o">标签</van-tabbar-item>
-    </van-tabbar>
-    <!-- <p>{{ this.songList }}</p> -->
-    <!-- <ul>
-      <li><audio controls="controls" src="https://m8.music.126.net/20210823090731/b69a9eb9b3…1e/9cc2/7c4f/b13ac6e62d3625524dde95fd1b1628bf.mp3"></audio></li>
-    </ul> -->
     <div class="playList-box">
-      <PlayList :title="idList.name" :cover="idList.coverImgUrl"></PlayList>
+      <PlayList :title="idList.name" :cover="idList.coverImgUrl" @click.native="toSongList"></PlayList>
     </div>
+    <div class="bottom">
+      <van-tabbar v-model="active" border="false" fixed class="tabbar">
+        <van-tabbar-item icon="home-o">首页</van-tabbar-item>
+        <van-tabbar-item icon="search">标签</van-tabbar-item>
+        <van-tabbar-item icon="friends-o">我的</van-tabbar-item>
+      </van-tabbar>
+    </div>
+    <!-- <p>{{ this.songList }}</p> -->
   </div>
 </template>
 
@@ -32,11 +30,26 @@ export default {
     ...mapState('idListModule', ['idList'])
   },
   created() {
-    this.idList.trackIds.forEach(element => {
-      this.getSong(element.id)
-    })
+    console.log(van - tabbar)
+    if (this.songList.length === 0) {
+      this.idList.trackIds.forEach(element => {
+        this.getSong(element.id)
+      })
+    } else {
+      console.log('数据加载完毕')
+    }
   },
   methods: {
+    toSongList() {
+      console.log('跳转')
+      this.$router.push({
+        path: '/songlist',
+        query: {
+          listName: this.idList.name,
+          cover: this.idList.coverImgUrl
+        }
+      })
+    },
     ...mapActions('songListModule', ['getSong'])
   },
   components: {
@@ -53,21 +66,22 @@ export default {
   width: 100%;
   padding-top: 46px;
   padding-bottom: 50px;
-  background-color: rgb(15, 50, 66) !important;
-}
-.van-nav-bar {
-  border: 1px solid #243346;
-}
-.van-tabbar {
-  box-shadow: 0px -7px 7px -7px #243346;
-  // border-top: 1px solid #243346;
+  background: url('../../assets/bgImg.jpg') no-repeat;
+  background-size: 100% 100%;
 }
 .playList-box {
   margin: auto;
   margin-top: 20px;
-  background-color: rgba(43, 76, 93, 0.35);
   height: auto;
   width: 94%;
-  border-radius: 15px;
+}
+.bottom {
+  color: white;
+}
+/deep/.tabbar {
+  border: false;
+}
+.van-hairline--bottom:after {
+  border-bottom-width: 0px;
 }
 </style>

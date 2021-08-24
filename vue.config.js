@@ -24,6 +24,7 @@ module.exports = {
     proxy: {
       '/api': {
         target: 'https://api.imjad.cn/cloudmusic',
+        secure: false,
         changeOrigin: true,
         pathRewrite: {
           '^/api': ''

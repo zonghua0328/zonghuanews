@@ -33,16 +33,18 @@ export default {
 <style lang="less" scoped>
 .playList-container {
   margin: auto;
-  width: 85%;
+  width: 100%;
   height: 70px;
-  background-color: rgba(43, 76, 93, 0.1);
+  background-color: rgba(38, 65, 82, 0.7);
   font-size: 12px;
   color: rgb(206, 204, 204);
+  border-radius: 15px;
 }
 .box {
   padding-top: 5px;
 }
 .cover {
+  margin-left: 15px;
   float: left;
   width: 20%;
 }
@@ -50,7 +52,7 @@ export default {
   float: left;
   margin: 0 0 0 8px;
   padding: auto;
-  width: 75%;
+  width: 70%;
   height: 60px;
 }
 .title {
